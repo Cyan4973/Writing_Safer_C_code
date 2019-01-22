@@ -130,3 +130,7 @@ All the flags presented so far can be combined into the following list, provided
 Quite a mouthful. Adopting as-is this list into an existing project might result in an abundant list of warnings if they were not already part of the build. Don't be afraid, your code is not necessarily broken, but definitely consider having a look: it might be fragile in subtle ways that these flags will help find. Enable additional warnings one by one, selectively, pick those which add value to your project. They will help keep the code better maintained.
 
 Compiler warning flags can be seen as a kind of giant list of patterns that the compiler is pre-trained to detect. It's great, but beyond such static capabilities, one might be interested in adding one's own set of conditions for the compiler to check and enforce. That's the purpose of next blog post.
+
+#### Special Thanks
+
+An early version of this article was commented by Nick Terrell and Evan Nemerson.

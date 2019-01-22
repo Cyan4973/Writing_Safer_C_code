@@ -129,3 +129,7 @@ This closes this first chapter on the type system. We have seen that it's possib
 That's not bad. Just using these properties will seriously improve code resistance to potential mis-usages.
 
 Yet, there is more the compiler can do to detect potential bugs in our code. To be continued...
+
+### Special Thanks
+
+An early version of this document was commented by Nick Terrell.
