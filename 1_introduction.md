@@ -1,4 +1,4 @@
-Writing safer C code may feel like an overwhelming goal. After all, After all, we are told that C gives programmers plenty of opportunities to [shoot their own foot](http://www.stroustrup.com/bs_faq.html#really-say-that).
+Writing safer C code may feel like an overwhelming goal. After all, we are told that C gives programmers plenty of opportunities to [shoot their own foot](http://www.stroustrup.com/bs_faq.html#really-say-that).
 
 But that's doesn't mean there is no possible improvement. Actually, in the last decade, programming practices have already evolved dramatically, and for the better, as a consequence of multiple forces, such as improved tooling, shared programming and rising cost of failures, as the numerous Internet exploits tend to remind us all too often.
 
