@@ -17,7 +17,7 @@ If it wasn't for the [strict aliasing rule], we would have a winner : just use t
 
 ## Strict aliasing
 
-Unfortunately, the [strict aliasing rule] gets in the way : we can't manipulate the same memory region from two pointers of different type. That's because the compiler is allowed to make assumptions about pointer usages for the benefit of performance, and it assumes that pointers of different type do not reference the same memory area.
+Unfortunately, the [strict aliasing rule] gets in the way : we can't manipulate the same memory region from two pointers of different type for the lifespan of the stored value. That's because the compiler is allowed to make assumptions about pointer value provenance for the benefit of performance.
 
 To visualize the issue, I like [this simple example](https://godbolt.org/z/6cSQvx), powered by Godbolt. Notice how the two `+1` get combined into a single `+2`, saving one save+load round trip, and allowing computation over `i` and `f` in parallel, so it's real saving.
 But unfortunately, if `f` and `i` have same addresses, the result is wrong : the first `i+1` influences the operation on `f` which influences the final value of `i`.
