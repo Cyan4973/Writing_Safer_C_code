@@ -47,7 +47,7 @@ typedef struct thing_s thing;   // incomplete (opaque) type
 
 typedef union {
     char body[SIZE];
-    unsigned align4;   // ensures `thingBody` is aligned on 4-bytes boundaries
+    int alignment_enforcer;   // ensure `thingBody` respects alignment of largest member of `thing`
 } thingBody;
 
 // PREFIX_initStatic_thing() accepts any buffer as input,
