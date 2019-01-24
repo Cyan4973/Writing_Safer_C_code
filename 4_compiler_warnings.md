@@ -11,7 +11,7 @@ Modern compilers [won't let such an obvious flaw silently happen](https://godbol
 At the very least, the warning is an invitation to spell the intention more clearly.
 Sometimes, it was a genuine error, and the compiler just helped us catch this issue before it ever reaches production, saving some considerable debug time.
 
-Multiplying the number of flags will increase the number of warnings. Sifting through a large list of warnings to find which ones are interesting and which one are merely informational can be daunting. But collaborative programming requires simple rules, that anyone can abide by.
+Multiplying the number of flags will increase the number of warnings. But sifting through a large list of warnings to find which ones are interesting and which one are merely informational can be daunting. Moreover, collaborative programming requires simple rules, that anyone can abide by.
 
 Using warnings should be coupled with a strict "zero-warning" policy. Every warning must be considered an error to be dealt with immediately. This is a clean signal that everyone understand, and that any CI environment can act upon. If a warning message is considered not fixable, or not desirable to fix, it's preferable to remove the associated flag from the build chain.
 
