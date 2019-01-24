@@ -118,11 +118,17 @@ For better portability, it's enough to know that some implementations of VLA are
 - `-Wc++-compat` : this flag ensures that the source can be compiled unmodified as both valid C and C++ code. This will require a few additional restrictions, such as casting from `void*`, which is unnecessary in C, but required in C++.
 This it handy for highly portable code, because it's not uncommon for some users to just import the source file in their project and compile it as a C++ file, even though it's clearly labelled as C. Moreover, when targeting `C90` compatibility, `C++` compatibility is not too far away, so the remaining effort is moderate.
 
-### Discovering new flags
+### Other interesting flags
 
-While it's not recommended to use too many warnings in the production build chain, it can be sometimes interesting to look at more options. Special mention can be given to `-Weverything` on `clang`, which will activate every possible warning flag.
+- `-Wconversion` : The C language allows most conversions to be performed silently. Transforming an `int` value into a `short` one ? No problem, just spell it. This design choice dates from the 70's, when reducing the number of keystrokes was important, due to concerns we can't even start to imagine today (slow printers, limited display space, hard key presses, etc.). Thing is, many type conversions are actually dangerous. That `int` to `short` ? What if the original value is larger than `SHRT_MAX` ? Yep, that's undefined behavior. `short` to `int` conversion, on the other hand, is risk free.
+`-Wconversion` will flag any silent type conversion which is _not_ risk free. In an existing code base developed without this flag, this will lead to a _very large_ number of warnings, likely within intractable territory.
+The situation is even worse for `gcc`, because it flags type conversions resulting from implicit operation conversions. [In this short example](https://godbolt.org/z/o6r63G), all variables are `short` types. There is no other type anywhere. Yet, `gcc`'s `-Wconversion` flag will trigger multiple warnings, because a basic operation such as `+` is allowed to be performed into `int` space, hence storing the final result into a `short` is now considered a "risky" conversion. Some constructions, such as `+=` can't even be fixed !
+Bottom line : starting a new code base with `-Wconversion` is doable, but adding this flag to an existing project is likely a too large burden.
+Special mention for the combination `clang` + `-Wconversion -Wno-sign-conversion`, which I use regularly, but only on `clang`.
+
+- `-Weverything` (`clang` only) : While it's not recommended to use too many warnings in the production build chain, it can be sometimes interesting to look at more options. Special mention can be given to `-Weverything` on `clang`, which will activate every possible warning flag.
 Now, [`-Weverything` is not meant to be used in production](https://quuxplusone.github.io/blog/2018/12/06/dont-use-weverything/). It's mostly a convenient "discovery" feature for `clang` developers, which can track and understand new warnings as they are added to "trunk".
-But for the purpose of testing if the compiler can help find new issues, it can be an interesting temporary digression. One or two of these warnings might uncover real issues, inviting to re-assess the list of warning flags used in production.
+But for the purpose of testing if the compiler can help find new issues, it can be an interesting temporary digression. One or two of these warnings might uncover real issues, inviting to re-assess the list of flags used in production.
 
 ### Summary
 
