@@ -5,9 +5,9 @@ One way to improve C code quality is to reduce the number of strange constructio
 
 A straightforward way to create such a "constrained"  C variant is to add compiler-specific warning flags. They will trigger warnings on detecting certain constructions considered dubious, if not downright dangerous.
 
-A simple example is the condition `if (i=1) {`. This test seems to check if `i` equal `1`, but that's not what it does : it _assigns_ the value `1` to `i`. Also, as a consequence, it is always true. This is _most likely_ a typo, the programmer probably wanted to express an equality test `if (i==1) {`. Yet, it's not invalid, strictly speaking. So a compiler is [allowed to accept it at face value](https://godbolt.org/z/Q5swoj) and generate a binary without any warning. That may take a while to debug ...
+A simple example is the condition `if (i=1) {`. This test seems to check if `i` equal `1`, but that's not what it does : it _assigns_ the value `1` to `i`. Also, as a consequence, it is always true. This is _most likely_ a typo, the programmer probably wanted to express an equality test `if (i==1) {`. Yet, it's not invalid, strictly speaking. So a compiler is [allowed to accept it at face value](https://godbolt.org/z/AFzE-u) and generate corresponding assembly without any warning. That may take a while to debug ...
 
-Modern compilers [won't let such an obvious flaw silently happen](https://godbolt.org/z/6uM2iL). They will issue a warning.
+The `if (i=1) {` typo statement is well known, and nowadays it triggers a warning in most compilers [with the help of warning flags](https://godbolt.org/z/1c5LhW).
 At the very least, the warning is an invitation to spell the intention more clearly.
 Sometimes, it was a genuine error, and the compiler just helped us catch this issue before it ever reaches production, saving some considerable debug time.
 
